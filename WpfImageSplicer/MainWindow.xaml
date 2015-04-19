@@ -1,0 +1,22 @@
+﻿<Window x:Class="WpfImageSplicer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="600" Width="800">
+    <Window.Resources>
+        <BitmapImage x:Key="MapImage" UriSource="pack://application:,,,/Resources/UKCounties.png"/>
+    </Window.Resources>
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <Canvas x:Name="Canvas" Width="1177" Height="1591">
+                
+                <!-- Underlay -->
+                <Image x:Name="LoadedImage" Width="1177" Height="1591" Source="{StaticResource MapImage}"/>
+
+            </Canvas>
+        </ScrollViewer>
+
+        <!-- Overlay -->
+        <Button x:Name="ProcessButton" Width="75" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20" Click="Process_Click">Process</Button>
+        <Button x:Name="ClearButton" Width="75" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 60" Click="Clear_Click">Clear</Button>
+    </Grid>
+</Window>
