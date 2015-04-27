@@ -61,7 +61,7 @@ namespace WpfImageSplicer
             var shapeDetector = new ShapeDetector(map);
             var edgePlotter = new EdgePlotter(new TraceLogger());
 
-            List<List<Point>> edgeList = new List<List<Point>>();
+            var edgeList = new List<List<Point>>();
 
             var shapeMap = shapeDetector.CreateShapeMap();
 
@@ -97,16 +97,16 @@ namespace WpfImageSplicer
         {
             var start = new System.Windows.Point(edge[0].X, edge[0].Y);;
 
-            List<LineSegment> segments = new List<LineSegment>();
-            for (int i = 1; i < edge.Count; i++)
+            var segments = new List<LineSegment>();
+            for (var i = 1; i < edge.Count; i++)
             {
                 var edgePoint = edge[i];
                 var wpfPoint = new System.Windows.Point(edgePoint.X, edgePoint.Y);
                 segments.Add(new LineSegment(wpfPoint, true));
             }
 
-            PathFigure figure = new PathFigure(start, segments, true); //true if closed
-            PathGeometry geometry = new PathGeometry();
+            var figure = new PathFigure(start, segments, true); //true if closed
+            var geometry = new PathGeometry();
             geometry.Figures.Add(figure);
 
 
@@ -135,6 +135,33 @@ namespace WpfImageSplicer
             var mapBuilder = new ExplorationMapBuilder(20);
             var map = mapBuilder.GetExplorationMap(pixels);
             return map;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                DefaultExt = ".png",
+                Filter =
+                    "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"
+            };
+
+            var result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                // Open document 
+                var filename = dlg.FileName;
+                ImagePathTextBox.Text = filename;
+
+                var img = new BitmapImage(new Uri(filename));
+
+                LoadedImage.Source = img;
+                LoadedImage.Width = img.Width;
+                LoadedImage.Height = img.Height;
+                Canvas.Width = img.Width;
+                Canvas.Height = img.Height;
+            }
         }
     }
 }
