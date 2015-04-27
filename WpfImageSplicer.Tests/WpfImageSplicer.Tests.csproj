@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Components\BaseTests.cs" />
     <Compile Include="Components\BasicTestMapTests.cs" />
+    <Compile Include="Components\DiamondTestMapTests.cs" />
     <Compile Include="Components\IslandTestMapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +70,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\DiamondTestMap.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\IslandTestMap.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
