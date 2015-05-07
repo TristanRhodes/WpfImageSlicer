@@ -23,11 +23,13 @@ namespace WpfImageSplicer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static Brush _borderBrush = new SolidColorBrush(Colors.Green);
+        private Style PathStyle
+        {
+            get { return (Style)this.Resources["OutlinePathStyle"]; }
+        }
 
         public MainWindow()
         {
-            _borderBrush.Opacity = 0.75;
             InitializeComponent();
         }
 
@@ -111,8 +113,7 @@ namespace WpfImageSplicer
 
 
             var path = new Path();
-            path.StrokeThickness = 4;
-            path.Stroke = _borderBrush;
+            path.Style = PathStyle;
             path.Data = geometry;
             return path;
         }

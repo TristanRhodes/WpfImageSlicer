@@ -4,7 +4,20 @@
         Title="MainWindow" Height="600" Width="800">
     <Window.Resources>
         <BitmapImage x:Key="MapImage" UriSource="pack://application:,,,/Resources/UKCounties.png"/>
+        
+        <Style x:Key="OutlinePathStyle" TargetType="{x:Type Path}">
+            <Style.Setters>
+                <Setter Property="StrokeThickness" Value="4"/>
+                <Setter Property="Stroke">
+                    <Setter.Value>
+                        <SolidColorBrush Color="Green" Opacity="0.75"/>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
     </Window.Resources>
+    
+    
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
             <Canvas x:Name="Canvas" Width="1177" Height="1591">
