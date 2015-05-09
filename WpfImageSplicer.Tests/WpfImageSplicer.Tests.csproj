@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Components\BaseTests.cs" />
     <Compile Include="Components\BasicTestMapTests.cs" />
-    <Compile Include="Components\DiamondTestMapTests.cs" />
+    <Compile Include="Components\LineBugMapTests.cs" />
     <Compile Include="Components\IslandTestMapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

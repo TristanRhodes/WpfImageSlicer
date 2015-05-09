@@ -8,9 +8,7 @@
     </Window.Resources>
     <Grid>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="0,39,0,-39">
-
-
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
             <Canvas x:Name="Canvas" Width="1177" Height="1591">
 
                 <!-- Underlay -->

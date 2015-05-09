@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WpfImageSplicer.Tests.Components
 {
     [TestFixture]
-    public class DiamondTestMapTests : BaseTests
+    public class LineBugMapTests : BaseTests
     {
         private string _imagePath = "Resources\\LineBugTestMap.png";
 
