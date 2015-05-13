@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfImageSplicer.Components;
+using WpfImageSplicer.ViewModel;
 
 
 namespace WpfImageSplicer
@@ -22,9 +23,16 @@ namespace WpfImageSplicer
             get { return (Style)this.Resources["OutlinePathStyle"]; }
         }
 
+        private HostViewModel ViewMode
+        {
+            get { return (HostViewModel)this.DataContext; }
+            set { this.DataContext = value; }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            ViewMode = new HostViewModel();
         }
 
         private void Process_Click(object sender, RoutedEventArgs e)

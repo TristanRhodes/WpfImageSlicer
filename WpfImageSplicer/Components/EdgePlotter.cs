@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfImageSplicer.Collections;
 
 namespace WpfImageSplicer.Components
 {
@@ -37,13 +38,13 @@ namespace WpfImageSplicer.Components
         }
 
 
-        public List<Point> CalculateEdge(bool[,] shapeMap)
+        public PointCollection CalculateEdge(bool[,] shapeMap)
         {
             // Find First Cell
             // Explore Until you find a cell that is not an edge
             // Start from the first clockwise vector
 
-            var path = new List<Point>();
+            var path = new PointCollection();
             var startPoint = GetStartPoint(shapeMap);
             var startVector = new Vector(0, 1);
 

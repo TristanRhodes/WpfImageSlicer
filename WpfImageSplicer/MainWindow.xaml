@@ -37,10 +37,12 @@
                 <!-- Underlay -->
                 <Image x:Name="LoadedImage" Width="1177" Height="1591" Source="{StaticResource MapImage}"/>
 
+                <!-- Overlay (Will Contain Paths) -->
+                
             </Canvas>
         </ScrollViewer>
 
-        <!-- Overlay -->
+        <!-- Controls Layer -->
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,10,0,0" Orientation="Horizontal">
             <TextBox x:Name="ImagePathTextBox" IsEnabled="False" Width="150"  Height="24"/>
             <Button Width="50" Height="24" Content="Browse" Click="Button_Click"/>
