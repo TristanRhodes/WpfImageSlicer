@@ -74,6 +74,7 @@
     </ApplicationDefinition>
     <Compile Include="Collections\PointCollection.cs" />
     <Compile Include="Components\ILogger.cs" />
+    <Compile Include="Converters\PathConverter.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="ViewModel\HostModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -131,9 +132,7 @@
   <ItemGroup>
     <Resource Include="Resources\UKSouthWales.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

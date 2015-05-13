@@ -60,12 +60,12 @@ namespace WpfImageSplicer.ViewModel
 
         public double Width 
         {
-            get { return _image.Width; } 
+            get { return _image.PixelWidth; } 
         }
 
         public double Height 
         {
-            get { return _image.Height; }
+            get { return _image.PixelHeight; }
         }
 
         public string ImagePath
