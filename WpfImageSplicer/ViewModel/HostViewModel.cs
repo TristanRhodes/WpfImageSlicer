@@ -13,7 +13,7 @@ using WpfImageSplicer.Components;
 
 namespace WpfImageSplicer.ViewModel
 {
-    public class HostViewModel : MainViewModel
+    public class HostViewModel : ViewModelBase
     {
         private bool _processing;
         private BitmapImage _image;
@@ -23,9 +23,13 @@ namespace WpfImageSplicer.ViewModel
 
         public HostViewModel()
         {
+            // Commands
             ProcessImageCommand = new RelayCommand(ExecuteProcessImage, CanExecuteProcessImage);
             BrowseForImageCommand = new RelayCommand(ExecuteBrowseForImage, CanExecuteBrowseForImage);
             ClearCommand = new RelayCommand(ExecuteClear, CanExecuteClear);
+
+            // Load default image
+            Image = new BitmapImage(new Uri("pack://application:,,,/Resources/UKCounties.png"));
         }
 
 

@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
         xmlns:converters="clr-namespace:WpfImageSplicer.Converters"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="600" Width="800"
+        DataContext="{Binding Host, Source={StaticResource ViewModelLocator}}">
     <Window.Resources>
         
-        <BitmapImage x:Key="MapImage" UriSource="pack://application:,,,/Resources/UKCounties.png"/>
-
         <converters:PathConverter x:Key="PathConverter" />
 
         <!-- Style to use for paths.-->

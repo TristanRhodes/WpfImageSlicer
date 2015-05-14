@@ -76,7 +76,7 @@
     <Compile Include="Components\ILogger.cs" />
     <Compile Include="Converters\PathConverter.cs" />
     <Compile Include="Vector.cs" />
-    <Compile Include="ViewModel\HostModel.cs" />
+    <Compile Include="ViewModel\HostViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">

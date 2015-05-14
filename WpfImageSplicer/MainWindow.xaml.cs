@@ -18,22 +18,9 @@ namespace WpfImageSplicer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private BitmapImage DefaultImage
-        {
-            get { return (BitmapImage)this.Resources["MapImage"]; }
-        }
-
-        private HostViewModel ViewModel
-        {
-            get { return (HostViewModel)this.DataContext; }
-            set { this.DataContext = value; }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = new HostViewModel();
-            ViewModel.Image = DefaultImage;
         }
     }
 }
