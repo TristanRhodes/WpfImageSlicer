@@ -137,7 +137,7 @@ namespace WpfImageSplicer.ViewModel
             {
                 DefaultExt = ".png",
                 Filter =
-                    "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"
+                "Image Files(*.BMP;*.JPG;*.GIF;*.JPEG;*.PNG)|*.BMP;*.JPG;*.GIF;*.JPEG;*.PNG|All files (*.*)|*.*" 
             };
 
             var result = dlg.ShowDialog();
@@ -161,6 +161,8 @@ namespace WpfImageSplicer.ViewModel
             _shapes.Clear();
         }
 
+
+        #region To Factor Out
 
         private List<PointCollection> ProcessImage(PixelColor[,] pixels)
         {
@@ -213,5 +215,7 @@ namespace WpfImageSplicer.ViewModel
             var map = mapBuilder.GetExplorationMap(pixels);
             return map;
         }
+
+        #endregion
     }
 }
