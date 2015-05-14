@@ -13,6 +13,14 @@ namespace WpfImageSplicer.Converters
 {
     public class PathConverter : IValueConverter
     {
+        /// <summary>
+        /// Converts WpfImageSplicer.Collections.PointCollection into PathGeometry
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var edge = value as WpfImageSplicer.Collections.PointCollection;

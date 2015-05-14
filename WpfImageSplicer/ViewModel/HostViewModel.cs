@@ -15,14 +15,24 @@ namespace WpfImageSplicer.ViewModel
 {
     public class HostViewModel : ViewModelBase
     {
+        // Components
+        private ILogger _logger;
+        private IExceptionHandler _exceptionHandler;
+
+        // Property Backers
         private bool _processing;
         private BitmapImage _image;
-        private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();
         private string _imagePath;
+        private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();
+        
 
-
-        public HostViewModel()
+        public HostViewModel(ILogger logger,
+                            IExceptionHandler exceptionHandler)
         {
+            // DI Setup
+            _logger = logger;
+            _exceptionHandler = exceptionHandler;
+
             // Commands
             ProcessImageCommand = new RelayCommand(ExecuteProcessImage, CanExecuteProcessImage);
             BrowseForImageCommand = new RelayCommand(ExecuteBrowseForImage, CanExecuteBrowseForImage);
@@ -157,7 +167,7 @@ namespace WpfImageSplicer.ViewModel
             var map = ExploreMap(pixels);
 
             var shapeDetector = new ShapeDetector(map);
-            var edgePlotter = new EdgePlotter(new TraceLogger());
+            var edgePlotter = new EdgePlotter(_logger);
 
             var edgeList = new List<PointCollection>();
 
@@ -174,17 +184,17 @@ namespace WpfImageSplicer.ViewModel
             return edgeList;
         }
 
-        private void ProcessImageComplete(Task<List<PointCollection>> edgeList)
+        private void ProcessImageComplete(Task<List<PointCollection>> task)
         {
             Processing = false;
 
-            if (edgeList.Exception != null)
+            if (task.Exception != null)
             {
-                HandleException(edgeList.Exception);
+                _exceptionHandler.HandleException(task.Exception);
                 return;
             }
 
-            foreach (var edge in edgeList.Result)
+            foreach (var edge in task.Result)
             {
                 _shapes.Add(edge);
             }
@@ -202,14 +212,6 @@ namespace WpfImageSplicer.ViewModel
             var mapBuilder = new ExplorationMapBuilder(20);
             var map = mapBuilder.GetExplorationMap(pixels);
             return map;
-        }
-
-
-        private void HandleException(Exception ex)
-        {
-            //TODO: Exception Policy
-            System.Diagnostics.Debugger.Break();
-            throw ex;
         }
     }
 }

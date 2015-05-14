@@ -15,6 +15,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using WpfImageSplicer.Components;
 
 namespace WpfImageSplicer.ViewModel
 {
@@ -40,11 +41,16 @@ namespace WpfImageSplicer.ViewModel
             {
                 // Create run time view services and models
                 // SimpleIoc.Default.Register<IDataService, DataService>();
+
             }
+
+            SimpleIoc.Default.Register<IExceptionHandler, DefaultExceptionHandler>();
+            SimpleIoc.Default.Register<ILogger, TraceLogger>();
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HostViewModel>();
         }
+
 
         public MainViewModel Main
         {
