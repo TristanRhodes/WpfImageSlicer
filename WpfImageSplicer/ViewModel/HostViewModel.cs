@@ -163,8 +163,6 @@ namespace WpfImageSplicer.ViewModel
         }
 
 
-        #region To Factor Out
-
         private void ProcessImageComplete(Task<List<PointCollection>> task)
         {
             Processing = false;
@@ -181,6 +179,5 @@ namespace WpfImageSplicer.ViewModel
             }
         }
 
-        #endregion
     }
 }
