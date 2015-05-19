@@ -25,8 +25,7 @@ namespace WpfImageSplicer.Components
 
         public Task<List<PointCollection>> ProcessImage(PixelColor[,] pixels)
         {
-            return new Task<List<PointCollection>>(
-                        () => InternalExecute(pixels));
+            return Task.Run(() => InternalExecute(pixels));
         }
 
         private List<PointCollection> InternalExecute(PixelColor[,] pixels)

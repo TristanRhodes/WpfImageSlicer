@@ -12,8 +12,7 @@
         <!-- Style to use for paths.-->
         <Style x:Key="OutlinePathStyle" TargetType="{x:Type Path}">
             <Style.Setters>
-                <Setter Property="Fill" Value="White" />
-                <Setter Property="StrokeThickness" Value="1"/>
+                <Setter Property="Fill" Value="Transparent" />
                 <Setter Property="Stroke">
                     <Setter.Value>
                         <SolidColorBrush Color="Green" Opacity="0.75"/>
@@ -25,7 +24,7 @@
                     <Setter Property="StrokeThickness" Value="4" />
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="False">
-                    <Setter Property="StrokeThickness" Value="1" />
+                    <Setter Property="StrokeThickness" Value="0" />
                 </Trigger>
             </Style.Triggers>
         </Style>

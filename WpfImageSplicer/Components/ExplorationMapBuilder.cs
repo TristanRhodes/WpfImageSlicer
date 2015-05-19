@@ -26,6 +26,7 @@ namespace WpfImageSplicer.Components
             var openCellColor = Color.FromRgb(255, 255, 255);
 
             // TODO: Parallelise
+            // TODO: Refactor into Strategy pattern.
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -34,9 +35,6 @@ namespace WpfImageSplicer.Components
                     var newColor = Color.FromRgb(p.Red, p.Green, p.Blue);
 
                     var open = AreColorsSimilar(openCellColor, newColor, _tolerance);
-                    //var open = (p.Red == 255
-                    //            && p.Green == 255
-                    //            && p.Blue == 255);
 
                     cellState[x, y] = open ?
                         MapState.AsOpen() :
@@ -53,42 +51,6 @@ namespace WpfImageSplicer.Components
             return Math.Abs(c1.R - c2.R) < tolerance &&
                    Math.Abs(c1.G - c2.G) < tolerance &&
                    Math.Abs(c1.B - c2.B) < tolerance;
-        }
-    }
-
-    public struct MapState
-    {
-        public bool Open;
-        public bool Explored;
-
-
-        private MapState(bool open, bool explored)
-        {
-            this.Open = open;
-            this.Explored = explored;
-        }
-
-
-        public MapState AsExplored()
-        {
-            return new MapState(Open, true);
-        }
-
-
-        public override string ToString()
-        {
-            return string.Format("O: {0}, E: {1}", Open, Explored);
-        }
-
-
-        internal static MapState AsOpen()
-        {
-            return new MapState(true, false);
-        }
-
-        internal static MapState AsClosed()
-        {
-            return new MapState(false, false);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace WpfImageSplicer.Components
         private ILogger _logger;
         private static bool _log = false;
 
+
         public EdgePlotter(ILogger logger)
         {
             _logger = logger;
@@ -55,11 +56,7 @@ namespace WpfImageSplicer.Components
 
             while (_ExplorationQueue.Count > 0)
             {
-                //if (path.Count > 20000)
-                //    Debugger.Break();
-
                 FollowEdge(shapeMap, path);
-                //System.Diagnostics.Trace.WriteLine("Move to: " + path[path.Count-1]);
             }
 
             return path;
@@ -146,19 +143,5 @@ namespace WpfImageSplicer.Components
 
             return _vectorQueue.ToArray();
         }
-    }
-
-    public struct VectorPoint
-    {
-        public Point StartPoint;
-        public Vector StartVector;
-
-        public VectorPoint(Point startPoint, Vector startVector)
-        {
-            // TODO: Complete member initialization
-            this.StartPoint = startPoint;
-            this.StartVector = startVector;
-        }
-       
     }
 }

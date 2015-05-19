@@ -77,6 +77,8 @@
     <Compile Include="Components\IExceptionHandler.cs" />
     <Compile Include="Components\IImageProcessor.cs" />
     <Compile Include="Components\ILogger.cs" />
+    <Compile Include="Components\MapState.cs" />
+    <Compile Include="Components\VectorPoint.cs" />
     <Compile Include="Converters\PathConverter.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="ViewModel\HostViewModel.cs" />
@@ -100,7 +102,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\PixelMapBuilder.cs" />
+    <Compile Include="Components\IPixelMapBuilder.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

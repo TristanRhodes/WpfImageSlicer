@@ -173,10 +173,8 @@ namespace WpfImageSplicer.ViewModel
                 return;
             }
 
-            foreach (var edge in task.Result)
-            {
-                _shapes.Add(edge);
-            }
+            _shapes = new ObservableCollection<PointCollection>(task.Result);
+            RaisePropertyChanged(() => Shapes);
         }
 
     }
