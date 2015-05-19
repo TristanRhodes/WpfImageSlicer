@@ -18,20 +18,23 @@ namespace WpfImageSplicer.ViewModel
         // Components
         private ILogger _logger;
         private IExceptionHandler _exceptionHandler;
-
+        private IDialogService _dialogService;
+        
         // Property Backers
         private bool _processing;
         private BitmapImage _image;
         private string _imagePath;
-        private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();
-        
+        private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();        
+
 
         public HostViewModel(ILogger logger,
-                            IExceptionHandler exceptionHandler)
+                                IExceptionHandler exceptionHandler,
+                                IDialogService dialogService)
         {
             // DI Setup
             _logger = logger;
             _exceptionHandler = exceptionHandler;
+            _dialogService = dialogService;
 
             // Commands
             ProcessImageCommand = new RelayCommand(ExecuteProcessImage, CanExecuteProcessImage);
@@ -121,7 +124,7 @@ namespace WpfImageSplicer.ViewModel
             var pixels = LoadMap();
 
             var task = Task
-                .Run<List<PointCollection>>(() => ProcessImage(pixels))
+                .Run(() => ProcessImage(pixels))
                 .ContinueWith(ProcessImageComplete, TaskScheduler.FromCurrentSynchronizationContext());
         }
         
@@ -133,21 +136,12 @@ namespace WpfImageSplicer.ViewModel
 
         public void ExecuteBrowseForImage()
         {
-            var dlg = new Microsoft.Win32.OpenFileDialog
-            {
-                DefaultExt = ".png",
-                Filter =
-                "Image Files(*.BMP;*.JPG;*.GIF;*.JPEG;*.PNG)|*.BMP;*.JPG;*.GIF;*.JPEG;*.PNG|All files (*.*)|*.*" 
-            };
+            var filename = _dialogService.SelectImage();
+            if (filename == null)
+                return;
 
-            var result = dlg.ShowDialog();
-            if (result == true)
-            {
-                // Open document 
-                var filename = dlg.FileName;
-                ImagePath = filename;
-                Image = new BitmapImage(new Uri(filename));
-            }
+            ImagePath = filename;
+            Image = new BitmapImage(new Uri(filename));
         }
 
         
@@ -170,11 +164,9 @@ namespace WpfImageSplicer.ViewModel
 
             var shapeDetector = new ShapeDetector(map);
             var edgePlotter = new EdgePlotter(_logger);
-
-            var edgeList = new List<PointCollection>();
-
             var shapeMap = shapeDetector.CreateShapeMap();
 
+            var edgeList = new List<PointCollection>();
             while (shapeDetector.GenerateShape(shapeMap))
             {
                 var edge = edgePlotter.CalculateEdge(shapeMap);

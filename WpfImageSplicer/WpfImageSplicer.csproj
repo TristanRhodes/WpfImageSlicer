@@ -73,6 +73,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Collections\PointCollection.cs" />
+    <Compile Include="Components\IDialogService.cs" />
     <Compile Include="Components\IExceptionHandler.cs" />
     <Compile Include="Components\ILogger.cs" />
     <Compile Include="Converters\PathConverter.cs" />
