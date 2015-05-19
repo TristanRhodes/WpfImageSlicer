@@ -41,11 +41,13 @@ namespace WpfImageSplicer.ViewModel
             {
                 // Create run time view services and models
                 // SimpleIoc.Default.Register<IDataService, DataService>();
-
             }
 
+            SimpleIoc.Default.Register<IDialogService, DefaultDialogService>();
             SimpleIoc.Default.Register<IExceptionHandler, DefaultExceptionHandler>();
             SimpleIoc.Default.Register<ILogger, TraceLogger>();
+            SimpleIoc.Default.Register<IImageProcessor, ImageProcessor>();
+            SimpleIoc.Default.Register<IPixelMapBuilder, PixelMapBuilder>();
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HostViewModel>();

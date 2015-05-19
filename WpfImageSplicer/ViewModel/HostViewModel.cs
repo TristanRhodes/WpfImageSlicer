@@ -19,22 +19,28 @@ namespace WpfImageSplicer.ViewModel
         private ILogger _logger;
         private IExceptionHandler _exceptionHandler;
         private IDialogService _dialogService;
+        private IImageProcessor _imageProcessor;
+        private IPixelMapBuilder _mapBuilder;
         
         // Property Backers
         private bool _processing;
         private BitmapImage _image;
         private string _imagePath;
-        private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();        
+        private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();
 
 
         public HostViewModel(ILogger logger,
                                 IExceptionHandler exceptionHandler,
-                                IDialogService dialogService)
+                                IDialogService dialogService,
+                                IImageProcessor imageProcessor,
+                                IPixelMapBuilder mapBuilder)
         {
             // DI Setup
             _logger = logger;
             _exceptionHandler = exceptionHandler;
             _dialogService = dialogService;
+            _imageProcessor = imageProcessor;
+            _mapBuilder = mapBuilder;
 
             // Commands
             ProcessImageCommand = new RelayCommand(ExecuteProcessImage, CanExecuteProcessImage);
@@ -120,11 +126,12 @@ namespace WpfImageSplicer.ViewModel
         {
             Processing = true;
 
-            // Load the map on the UI 
-            var pixels = LoadMap();
+            // Load the map from the UI
+            var pixels = _mapBuilder
+                .GetPixels(Image);
 
-            var task = Task
-                .Run(() => ProcessImage(pixels))
+            var task = _imageProcessor
+                .ProcessImage(pixels)
                 .ContinueWith(ProcessImageComplete, TaskScheduler.FromCurrentSynchronizationContext());
         }
         
@@ -158,26 +165,6 @@ namespace WpfImageSplicer.ViewModel
 
         #region To Factor Out
 
-        private List<PointCollection> ProcessImage(PixelColor[,] pixels)
-        {
-            var map = ExploreMap(pixels);
-
-            var shapeDetector = new ShapeDetector(map);
-            var edgePlotter = new EdgePlotter(_logger);
-            var shapeMap = shapeDetector.CreateShapeMap();
-
-            var edgeList = new List<PointCollection>();
-            while (shapeDetector.GenerateShape(shapeMap))
-            {
-                var edge = edgePlotter.CalculateEdge(shapeMap);
-
-                if (edge.Count > 2)
-                    edgeList.Add(edge);
-            }
-
-            return edgeList;
-        }
-
         private void ProcessImageComplete(Task<List<PointCollection>> task)
         {
             Processing = false;
@@ -192,20 +179,6 @@ namespace WpfImageSplicer.ViewModel
             {
                 _shapes.Add(edge);
             }
-        }
-
-        public PixelColor[,] LoadMap()
-        {
-            var pixelMapBuilder = new PixelMapBuilder();
-            var pixels = pixelMapBuilder.GetPixels(Image);
-            return pixels;
-        }
-
-        public static MapState[,] ExploreMap(PixelColor[,] pixels)
-        {
-            var mapBuilder = new ExplorationMapBuilder(20);
-            var map = mapBuilder.GetExplorationMap(pixels);
-            return map;
         }
 
         #endregion

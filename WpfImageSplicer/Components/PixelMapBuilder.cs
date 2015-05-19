@@ -9,7 +9,12 @@ using System.Windows.Media.Imaging;
 
 namespace WpfImageSplicer.Components
 {
-    public class PixelMapBuilder
+    public interface IPixelMapBuilder
+    {
+        PixelColor[,] GetPixels(BitmapSource source);
+    }
+
+    public class PixelMapBuilder : IPixelMapBuilder
     {
         public PixelColor[,] GetPixels(BitmapSource source)
         {
