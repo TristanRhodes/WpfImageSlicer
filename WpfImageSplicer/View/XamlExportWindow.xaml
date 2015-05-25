@@ -1,0 +1,9 @@
+﻿<Window x:Class="WpfImageSplicer.View.XamlExportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="XamlExportWindow" Height="480" Width="640"
+        DataContext="{Binding XamlExport, Source={StaticResource ViewModelLocator}}">
+    <Grid>
+        <TextBox IsReadOnly="True" Text="{Binding Xaml}" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"/>
+    </Grid>
+</Window>

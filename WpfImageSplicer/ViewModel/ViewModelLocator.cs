@@ -43,14 +43,17 @@ namespace WpfImageSplicer.ViewModel
                 // SimpleIoc.Default.Register<IDataService, DataService>();
             }
 
+            // Components and services.
             SimpleIoc.Default.Register<IDialogService, DefaultDialogService>();
             SimpleIoc.Default.Register<IExceptionHandler, DefaultExceptionHandler>();
             SimpleIoc.Default.Register<ILogger, TraceLogger>();
             SimpleIoc.Default.Register<IImageProcessor, ImageProcessor>();
             SimpleIoc.Default.Register<IPixelMapBuilder, PixelMapBuilder>();
 
+            // View Models
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HostViewModel>();
+            SimpleIoc.Default.Register<XamlExportViewModel>();
         }
 
 
@@ -68,6 +71,11 @@ namespace WpfImageSplicer.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<HostViewModel>();
             }
+        }
+
+        public XamlExportViewModel XamlExport
+        {
+            get { return ServiceLocator.Current.GetInstance<XamlExportViewModel>(); }
         }
         
 

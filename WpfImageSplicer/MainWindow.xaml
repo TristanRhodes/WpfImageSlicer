@@ -43,7 +43,7 @@
 
                 <!-- Region Layer -->
                 <ItemsControl ItemsSource="{Binding Shapes}"
-                    Width="{Binding Width}" Height="{Binding Height}"
+                            Width="{Binding Width}" Height="{Binding Height}"
                             ScrollViewer.CanContentScroll="False"
                             Background="Transparent">
                     <ItemsControl.ItemsPanel>
@@ -61,12 +61,14 @@
         </ScrollViewer>
 
         <!-- Controls Layer -->
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,10,0,0" Orientation="Horizontal">
-            <TextBox x:Name="ImagePathTextBox" IsEnabled="False" Width="150"  Height="24" Text="{Binding ImagePath}"/>
-            <Button Width="50" Height="24" Content="Browse" Command="{Binding BrowseForImageCommand}"/>
+        <StackPanel HorizontalAlignment="Right" Width="250" Margin="0,0,20,0">
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+                <TextBox x:Name="ImagePathTextBox" Margin="5" IsEnabled="False" Width="150" Height="24" Text="{Binding ImagePath}"/>
+                <Button Width="75" Height="24" Margin="5" Content="Browse" Command="{Binding BrowseForImageCommand}"/>
+            </StackPanel>
+            <Button x:Name="ProcessButton" Width="75" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Command="{Binding ProcessImageCommand}">Process</Button>
+            <Button x:Name="ClearButton" Width="75" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Command="{Binding ClearCommand}">Clear</Button>
+            <Button x:Name="ExportButton" Width="75" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Command="{Binding ExportXamlCommand}">Export</Button>
         </StackPanel>
-        <Button x:Name="ProcessButton" Width="75" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="249,10,0,0" Command="{Binding ProcessImageCommand}">Process</Button>
-        <Button x:Name="ClearButton" Width="75" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="362,10,0,0" Command="{Binding ClearCommand}">Clear</Button>
-
     </Grid>
 </Window>

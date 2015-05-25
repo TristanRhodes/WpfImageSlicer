@@ -46,6 +46,7 @@ namespace WpfImageSplicer.ViewModel
             ProcessImageCommand = new RelayCommand(ExecuteProcessImage, CanExecuteProcessImage);
             BrowseForImageCommand = new RelayCommand(ExecuteBrowseForImage, CanExecuteBrowseForImage);
             ClearCommand = new RelayCommand(ExecuteClear, CanExecuteClear);
+            ExportXamlCommand = new RelayCommand(ExecuteExportXaml, CanExecuteExportXaml);
 
             // Load default image
             Image = new BitmapImage(new Uri("pack://application:,,,/Resources/UKCounties.png"));
@@ -116,6 +117,8 @@ namespace WpfImageSplicer.ViewModel
 
         public ICommand BrowseForImageCommand { get; private set; }
 
+        public ICommand ExportXamlCommand { get; private set; }
+
 
         public bool CanExecuteProcessImage()
         {
@@ -163,6 +166,25 @@ namespace WpfImageSplicer.ViewModel
         }
 
 
+        public bool CanExecuteExportXaml()
+        {
+            return true;
+        }
+
+        public void ExecuteExportXaml()
+        {
+            // Generate Xaml
+            var xaml = "XML";
+
+            // Package into message
+            var msg = new XamlExportMessage();
+            msg.Xaml = xaml;
+
+            // Raise Message
+            MessengerInstance.Send(msg);
+        }
+
+
         private void ProcessImageComplete(Task<List<PointCollection>> task)
         {
             Processing = false;
@@ -176,6 +198,5 @@ namespace WpfImageSplicer.ViewModel
             _shapes = new ObservableCollection<PointCollection>(task.Result);
             RaisePropertyChanged(() => Shapes);
         }
-
     }
 }
