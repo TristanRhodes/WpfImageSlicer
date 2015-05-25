@@ -35,5 +35,11 @@ namespace WpfImageSplicer
             _xamlExportWindow.Show();
             _xamlExportWindow.Activate();
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            App.Current.Shutdown(0);
+            base.OnClosed(e);
+        }
     }
 }
