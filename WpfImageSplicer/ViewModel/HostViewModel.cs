@@ -188,13 +188,38 @@ namespace WpfImageSplicer.ViewModel
         private string GenerateXaml()
         {
             //HACK: Quick export implementation. To refactor out!!!!
-            var root = new System.Windows.Controls.Canvas();
             var converter = new WpfImageSplicer.Converters.PathConverter();
+
+            // Setup Style
+            var style = new System.Windows.Style();
+            style.TargetType = typeof(System.Windows.Shapes.Path);
+
+            style.Setters.Add(
+                new System.Windows.Setter(System.Windows.Shapes.Path.StrokeThicknessProperty, 
+                    1.0));
+
+            style.Setters.Add(
+                new System.Windows.Setter(System.Windows.Shapes.Path.StrokeProperty, 
+                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black)));
+
+            style.Setters.Add(
+                new System.Windows.Setter(System.Windows.Shapes.Path.FillProperty, 
+                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent)));
+
+            var root = new System.Windows.Controls.Canvas();
+            root.Width = Width;
+            root.Height = Height;
+
+            //TODO: Find a way to export the style as a resource, rather than embedded in the XAML.
+            //root.Resources.Add("PathStyle", style);
 
             foreach(var shape in _shapes)
             {
                 var path = new System.Windows.Shapes.Path();
                 path.Data = (System.Windows.Media.PathGeometry)converter.Convert(shape, null, null, null);
+                path.Style = style;
+                //var binding = new System.Windows.Data.Binding("PathStyle");
+                //path.SetBinding(System.Windows.Shapes.Path.StyleProperty, binding);
                 root.Children.Add(path);
             }
 
