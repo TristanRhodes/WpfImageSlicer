@@ -168,13 +168,13 @@ namespace WpfImageSplicer.ViewModel
 
         public bool CanExecuteExportXaml()
         {
-            return true;
+            return this._shapes.Count > 0;
         }
 
         public void ExecuteExportXaml()
         {
             // Generate Xaml
-            var xaml = "XML";
+            var xaml = GenerateXaml();
 
             // Package into message
             var msg = new XamlExportMessage();
@@ -184,6 +184,23 @@ namespace WpfImageSplicer.ViewModel
             MessengerInstance.Send(msg);
         }
 
+
+        private string GenerateXaml()
+        {
+            //HACK: Quick export implementation. To refactor out!!!!
+            var root = new System.Windows.Controls.Canvas();
+            var converter = new WpfImageSplicer.Converters.PathConverter();
+
+            foreach(var shape in _shapes)
+            {
+                var path = new System.Windows.Shapes.Path();
+                path.Data = (System.Windows.Media.PathGeometry)converter.Convert(shape, null, null, null);
+                root.Children.Add(path);
+            }
+
+            // TODO: Implement Proper XML Formatting.
+            return System.Windows.Markup.XamlWriter.Save(root);
+        }
 
         private void ProcessImageComplete(Task<List<PointCollection>> task)
         {
