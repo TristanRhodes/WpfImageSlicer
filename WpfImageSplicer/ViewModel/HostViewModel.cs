@@ -75,6 +75,8 @@ namespace WpfImageSplicer.ViewModel
                 if (_image == value)
                     return;
 
+                // Lots of properties are impacted by a change in image, 
+                // but they are derived values, so have no direct setter.
                 _image = value;
                 RaisePropertyChanged(() => Processing);
                 RaisePropertyChanged(() => Width);
@@ -133,6 +135,7 @@ namespace WpfImageSplicer.ViewModel
             var pixels = _mapBuilder
                 .GetPixels(Image);
 
+            // Kick off a task to process the image, and handle the completed callback on the UI thread.
             var task = _imageProcessor
                 .ProcessImage(pixels)
                 .ContinueWith(ProcessImageComplete, TaskScheduler.FromCurrentSynchronizationContext());
@@ -187,6 +190,9 @@ namespace WpfImageSplicer.ViewModel
 
         private string GenerateXaml()
         {
+            //NOTE: This is a work in progress. :)
+
+
             //HACK: Quick export implementation. To refactor out!!!!
             var converter = new WpfImageSplicer.Converters.PathConverter();
 
@@ -211,6 +217,8 @@ namespace WpfImageSplicer.ViewModel
             root.Height = Height;
 
             //TODO: Find a way to export the style as a resource, rather than embedded in the XAML.
+            //NOTE: Might requre an XML transform as a post process step.
+
             //root.Resources.Add("PathStyle", style);
 
             foreach(var shape in _shapes)
@@ -218,6 +226,7 @@ namespace WpfImageSplicer.ViewModel
                 var path = new System.Windows.Shapes.Path();
                 path.Data = (System.Windows.Media.PathGeometry)converter.Convert(shape, null, null, null);
                 path.Style = style;
+                //TODO: Use a binding to a StaticResource. Can't find a current answer.
                 //var binding = new System.Windows.Data.Binding("PathStyle");
                 //path.SetBinding(System.Windows.Shapes.Path.StyleProperty, binding);
                 root.Children.Add(path);
