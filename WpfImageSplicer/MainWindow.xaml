@@ -24,7 +24,7 @@
                     <Setter Property="StrokeThickness" Value="4" />
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="False">
-                    <Setter Property="StrokeThickness" Value="0" />
+                    <Setter Property="StrokeThickness" Value="1" />
                 </Trigger>
             </Style.Triggers>
         </Style>

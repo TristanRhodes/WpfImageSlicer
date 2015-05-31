@@ -248,6 +248,9 @@ namespace WpfImageSplicer.ViewModel
 
             _shapes = new ObservableCollection<PointCollection>(task.Result);
             RaisePropertyChanged(() => Shapes);
+
+            //NOTE: This is not ideal. Should find better solution.
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }
