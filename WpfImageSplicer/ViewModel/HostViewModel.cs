@@ -21,19 +21,21 @@ namespace WpfImageSplicer.ViewModel
         private IDialogService _dialogService;
         private IImageProcessor _imageProcessor;
         private IPixelMapBuilder _mapBuilder;
-        
+        private IXamlGenerator _xamlGenerator;
+
         // Property Backers
         private bool _processing;
         private BitmapImage _image;
         private string _imagePath;
         private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();
-
+        
 
         public HostViewModel(ILogger logger,
                                 IExceptionHandler exceptionHandler,
                                 IDialogService dialogService,
                                 IImageProcessor imageProcessor,
-                                IPixelMapBuilder mapBuilder)
+                                IPixelMapBuilder mapBuilder,
+                                IXamlGenerator xamlGenerator)
         {
 
             ////if (IsInDesignMode)
@@ -51,6 +53,7 @@ namespace WpfImageSplicer.ViewModel
             _dialogService = dialogService;
             _imageProcessor = imageProcessor;
             _mapBuilder = mapBuilder;
+            _xamlGenerator = xamlGenerator;
 
             // Commands
             ProcessImageCommand = new RelayCommand(ExecuteProcessImage, CanExecuteProcessImage);
@@ -187,7 +190,7 @@ namespace WpfImageSplicer.ViewModel
         public void ExecuteExportXaml()
         {
             // Generate Xaml
-            var xaml = GenerateXaml();
+            var xaml = _xamlGenerator.GenerateXaml(Width, Height, _shapes);
 
             // Package into message
             var msg = new XamlExportMessage();
@@ -197,54 +200,6 @@ namespace WpfImageSplicer.ViewModel
             MessengerInstance.Send(msg);
         }
 
-
-        private string GenerateXaml()
-        {
-            //NOTE: This is a work in progress. :)
-
-
-            //HACK: Quick export implementation. To refactor out!!!!
-            var converter = new WpfImageSplicer.Converters.PathConverter();
-
-            // Setup Style
-            var style = new System.Windows.Style();
-            style.TargetType = typeof(System.Windows.Shapes.Path);
-
-            style.Setters.Add(
-                new System.Windows.Setter(System.Windows.Shapes.Path.StrokeThicknessProperty, 
-                    1.0));
-
-            style.Setters.Add(
-                new System.Windows.Setter(System.Windows.Shapes.Path.StrokeProperty, 
-                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black)));
-
-            style.Setters.Add(
-                new System.Windows.Setter(System.Windows.Shapes.Path.FillProperty, 
-                new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent)));
-
-            var root = new System.Windows.Controls.Canvas();
-            root.Width = Width;
-            root.Height = Height;
-
-            //TODO: Find a way to export the style as a resource, rather than embedded in the XAML.
-            //NOTE: Might requre an XML transform as a post process step.
-
-            //root.Resources.Add("PathStyle", style);
-
-            foreach(var shape in _shapes)
-            {
-                var path = new System.Windows.Shapes.Path();
-                path.Data = (System.Windows.Media.PathGeometry)converter.Convert(shape, null, null, null);
-                path.Style = style;
-                //TODO: Use a binding to a StaticResource. Can't find a current answer.
-                //var binding = new System.Windows.Data.Binding("PathStyle");
-                //path.SetBinding(System.Windows.Shapes.Path.StyleProperty, binding);
-                root.Children.Add(path);
-            }
-
-            // TODO: Implement Proper XML Formatting.
-            return System.Windows.Markup.XamlWriter.Save(root);
-        }
 
         private void ProcessImageComplete(Task<List<PointCollection>> task)
         {

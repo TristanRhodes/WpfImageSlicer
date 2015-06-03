@@ -49,6 +49,7 @@ namespace WpfImageSplicer.ViewModel
             SimpleIoc.Default.Register<ILogger, TraceLogger>();
             SimpleIoc.Default.Register<IImageProcessor, ImageProcessor>();
             SimpleIoc.Default.Register<IPixelMapBuilder, PixelMapBuilder>();
+            SimpleIoc.Default.Register<IXamlGenerator, DefaultXamlGenerator>();
 
             // View Models
             SimpleIoc.Default.Register<HostViewModel>();
