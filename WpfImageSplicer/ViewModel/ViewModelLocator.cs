@@ -51,18 +51,8 @@ namespace WpfImageSplicer.ViewModel
             SimpleIoc.Default.Register<IPixelMapBuilder, PixelMapBuilder>();
 
             // View Models
-            SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HostViewModel>();
             SimpleIoc.Default.Register<XamlExportViewModel>();
-        }
-
-
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
         }
 
         public HostViewModel Host
@@ -81,7 +71,7 @@ namespace WpfImageSplicer.ViewModel
 
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            // TODO: Clear the ViewModels
         }
     }
 }

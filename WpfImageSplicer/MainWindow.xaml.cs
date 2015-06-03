@@ -39,6 +39,8 @@ namespace WpfImageSplicer
         protected override void OnClosed(EventArgs e)
         {
             App.Current.Shutdown(0);
+            ViewModelLocator.Cleanup();
+
             base.OnClosed(e);
         }
     }

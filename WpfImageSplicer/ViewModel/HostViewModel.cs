@@ -35,6 +35,16 @@ namespace WpfImageSplicer.ViewModel
                                 IImageProcessor imageProcessor,
                                 IPixelMapBuilder mapBuilder)
         {
+
+            ////if (IsInDesignMode)
+            ////{
+            ////    // Code runs in Blend --> create design time data.
+            ////}
+            ////else
+            ////{
+            ////    // Code runs "for real"
+            ////}
+
             // DI Setup
             _logger = logger;
             _exceptionHandler = exceptionHandler;
@@ -249,7 +259,8 @@ namespace WpfImageSplicer.ViewModel
             _shapes = new ObservableCollection<PointCollection>(task.Result);
             RaisePropertyChanged(() => Shapes);
 
-            //NOTE: This is not ideal. Should find better solution.
+            //NOTE: This is not ideal. Should find better solution. 
+            // Without this, buttons do not re-enable after processing is completed, and remain grayed out.
             CommandManager.InvalidateRequerySuggested();
         }
     }

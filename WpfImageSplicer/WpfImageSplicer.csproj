@@ -82,7 +82,6 @@
     <Compile Include="Converters\PathConverter.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="ViewModel\HostViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\XamlExportViewModel.cs" />
     <Compile Include="View\XamlExportWindow.xaml.cs">
