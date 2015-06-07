@@ -68,6 +68,7 @@
     <Compile Include="Components\BasicTestMapTests.cs" />
     <Compile Include="Components\LineBugMapTests.cs" />
     <Compile Include="Components\IslandTestMapTests.cs" />
+    <Compile Include="Components\XamlGeneratorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

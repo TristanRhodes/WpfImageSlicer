@@ -194,7 +194,7 @@ namespace WpfImageSplicer.ViewModel
 
             // Package into message
             var msg = new XamlExportMessage();
-            msg.Xaml = xaml;
+            msg.Xaml = xaml.Result;
 
             // Raise Message
             MessengerInstance.Send(msg);
