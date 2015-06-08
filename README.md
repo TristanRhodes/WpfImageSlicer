@@ -9,7 +9,6 @@ Tool for generating WPF paths from a supplied image. Performs edge detection and
 ![alt text](https://raw.githubusercontent.com/TristanRhodes/WpfImageSlicer/GitHubResources/resources/SlicedMap.jpg "Sliced Map")
 
 #Export the XAML 
-(Yes, it still needs formatting :) )
 ![alt text](https://raw.githubusercontent.com/TristanRhodes/WpfImageSlicer/GitHubResources/resources/XamlExport.JPG "Exported Xaml")
 
 #Direction
