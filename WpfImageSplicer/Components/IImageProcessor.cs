@@ -50,7 +50,8 @@ namespace WpfImageSplicer.Components
 
         private MapState[,] ExploreMap(PixelColor[,] pixels)
         {
-            var mapBuilder = new ExplorationMapBuilder(20);
+            var pixelComparer = new TolerancePixelComparer(20);
+            var mapBuilder = new ExplorationMapBuilder(pixelComparer);
             var map = mapBuilder.GetExplorationMap(pixels);
             return map;
         }

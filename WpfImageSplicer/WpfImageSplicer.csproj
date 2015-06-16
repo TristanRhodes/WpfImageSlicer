@@ -77,6 +77,7 @@
     <Compile Include="Components\IExceptionHandler.cs" />
     <Compile Include="Components\IImageProcessor.cs" />
     <Compile Include="Components\ILogger.cs" />
+    <Compile Include="Components\IPixelComparer.cs" />
     <Compile Include="Components\IXamlGenerator.cs" />
     <Compile Include="Components\MapState.cs" />
     <Compile Include="Components\VectorPoint.cs" />

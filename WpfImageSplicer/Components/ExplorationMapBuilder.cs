@@ -9,12 +9,14 @@ namespace WpfImageSplicer.Components
 {
     public class ExplorationMapBuilder
     {
-        private int _tolerance;
+        private IPixelComparer _pixelComparer;
+        
 
-        public ExplorationMapBuilder(int tolerance)
+        public ExplorationMapBuilder(IPixelComparer pixelComparer)
         {
-            _tolerance = tolerance;
+            _pixelComparer = pixelComparer;
         }
+
 
         public MapState[,] GetExplorationMap(PixelColor[,] source)
         {
@@ -34,7 +36,7 @@ namespace WpfImageSplicer.Components
                     var p = source[x, y];
                     var newColor = Color.FromRgb(p.Red, p.Green, p.Blue);
 
-                    var open = AreColorsSimilar(openCellColor, newColor, _tolerance);
+                    var open = _pixelComparer.AreSimilar(openCellColor, newColor);
 
                     cellState[x, y] = open ?
                         MapState.AsOpen() :
@@ -43,14 +45,6 @@ namespace WpfImageSplicer.Components
             }
 
             return cellState;
-        }
-
-
-        private bool AreColorsSimilar(Color c1, Color c2, int tolerance)
-        {
-            return Math.Abs(c1.R - c2.R) < tolerance &&
-                   Math.Abs(c1.G - c2.G) < tolerance &&
-                   Math.Abs(c1.B - c2.B) < tolerance;
         }
     }
 }
