@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using WpfImageSplicer.Components;
 using NUnit.Framework;
+using System.Windows.Media;
 
 namespace WpfImageSplicer.Tests.Components
 {
@@ -22,7 +23,7 @@ namespace WpfImageSplicer.Tests.Components
 
         public static MapState[,] ExploreMap(PixelColor[,] pixels)
         {
-            var comparer = new TolerancePixelComparer(20);
+            var comparer = new TolerancePixelComparer(20, Color.FromRgb(255, 255, 255));
             var mapBuilder = new ExplorationMapBuilder(comparer);
             var map = mapBuilder.GetExplorationMap(pixels);
             return map;
