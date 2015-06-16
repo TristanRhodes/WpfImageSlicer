@@ -22,7 +22,8 @@ namespace WpfImageSplicer.Tests.Components
 
         public static MapState[,] ExploreMap(PixelColor[,] pixels)
         {
-            var mapBuilder = new ExplorationMapBuilder(50);
+            var comparer = new TolerancePixelComparer(20);
+            var mapBuilder = new ExplorationMapBuilder(comparer);
             var map = mapBuilder.GetExplorationMap(pixels);
             return map;
         }
