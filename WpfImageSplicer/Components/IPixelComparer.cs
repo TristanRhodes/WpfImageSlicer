@@ -9,23 +9,25 @@ namespace WpfImageSplicer.Components
 {
     public interface IPixelComparer
     {
-        bool AreSimilar(Color c1, Color c2);
+        bool IsOpen(Color color);
     }
 
     public class TolerancePixelComparer : IPixelComparer
     {
         private int _tolerance;
+        private Color _openCellColor;
 
-        public TolerancePixelComparer(int tolerance)
+        public TolerancePixelComparer(int tolerance, Color openCellColor)
         {
             _tolerance = tolerance;
+            _openCellColor = openCellColor;
         }
 
-        public bool AreSimilar(Color c1, Color c2)
+        public bool IsOpen(Color color)
         {
-            return Math.Abs(c1.R - c2.R) < _tolerance &&
-                   Math.Abs(c1.G - c2.G) < _tolerance &&
-                   Math.Abs(c1.B - c2.B) < _tolerance;
+            return Math.Abs(_openCellColor.R - color.R) < _tolerance &&
+                   Math.Abs(_openCellColor.G - color.G) < _tolerance &&
+                   Math.Abs(_openCellColor.B - color.B) < _tolerance;
         }
     }
 }

@@ -12,6 +12,7 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
@@ -53,7 +54,7 @@ namespace WpfImageSplicer.ViewModel
             SimpleIoc.Default.Register<IExplorationMapBuilder, ExplorationMapBuilder>();
 
             // NOTE: This it temporary, the pixel comparer needs to be made fully configurable.
-            SimpleIoc.Default.Register<IPixelComparer>(() => new TolerancePixelComparer(20));
+            SimpleIoc.Default.Register<IPixelComparer>(() => new TolerancePixelComparer(20, Color.FromRgb(255, 255, 255)));
 
             // View Models
             SimpleIoc.Default.Register<HostViewModel>();

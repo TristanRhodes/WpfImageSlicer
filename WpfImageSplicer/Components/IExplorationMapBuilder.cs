@@ -30,18 +30,17 @@ namespace WpfImageSplicer.Components
 
             var cellState = new MapState[width, height];
 
-            var openCellColor = Color.FromRgb(255, 255, 255);
-
             // TODO: Parallelise
             // TODO: Refactor into Strategy pattern.
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    var p = source[x, y];
-                    var newColor = Color.FromRgb(p.Red, p.Green, p.Blue);
+                    var newColor = source[x, y]
+                                    .ToColor();
 
-                    var open = _pixelComparer.AreSimilar(openCellColor, newColor);
+                    var open = _pixelComparer
+                                    .IsOpen(newColor);
 
                     cellState[x, y] = open ?
                         MapState.AsOpen() :

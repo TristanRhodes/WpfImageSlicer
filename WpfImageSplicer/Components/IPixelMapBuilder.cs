@@ -72,6 +72,10 @@ namespace WpfImageSplicer.Components
             Alpha = a;
         }
 
+        public Color ToColor()
+        {
+            return Color.FromRgb(Red, Green, Blue);
+        }
 
         public override string ToString()
         {
