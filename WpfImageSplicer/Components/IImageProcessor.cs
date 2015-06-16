@@ -15,11 +15,13 @@ namespace WpfImageSplicer.Components
     public class ImageProcessor : IImageProcessor
     {
         private ILogger _logger;
+        private IExplorationMapBuilder _mapBuilder;
         
 
-        public ImageProcessor(ILogger logger)
+        public ImageProcessor(ILogger logger, IExplorationMapBuilder mapBuilder)
         {
             _logger = logger;
+            _mapBuilder = mapBuilder;
         }
 
 
@@ -30,7 +32,7 @@ namespace WpfImageSplicer.Components
 
         private List<PointCollection> InternalExecute(PixelColor[,] pixels)
         {
-            var map = ExploreMap(pixels);
+            var map = _mapBuilder.GetExplorationMap(pixels);
 
             var shapeDetector = new ShapeDetector(map);
             var edgePlotter = new EdgePlotter(_logger);
@@ -46,14 +48,6 @@ namespace WpfImageSplicer.Components
             }
 
             return edgeList;
-        }
-
-        private MapState[,] ExploreMap(PixelColor[,] pixels)
-        {
-            var pixelComparer = new TolerancePixelComparer(20);
-            var mapBuilder = new ExplorationMapBuilder(pixelComparer);
-            var map = mapBuilder.GetExplorationMap(pixels);
-            return map;
         }
     }
 }

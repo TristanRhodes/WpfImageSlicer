@@ -103,7 +103,7 @@
     </Compile>
     <Compile Include="CellState.cs" />
     <Compile Include="Components\EdgePlotter.cs" />
-    <Compile Include="Components\ExplorationMapBuilder.cs" />
+    <Compile Include="Components\IExplorationMapBuilder.cs" />
     <Compile Include="Components\ShapeDetector.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

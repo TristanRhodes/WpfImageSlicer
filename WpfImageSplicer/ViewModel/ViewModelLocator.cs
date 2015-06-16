@@ -50,6 +50,10 @@ namespace WpfImageSplicer.ViewModel
             SimpleIoc.Default.Register<IImageProcessor, ImageProcessor>();
             SimpleIoc.Default.Register<IPixelMapBuilder, PixelMapBuilder>();
             SimpleIoc.Default.Register<IXamlGenerator, DefaultXamlGenerator>();
+            SimpleIoc.Default.Register<IExplorationMapBuilder, ExplorationMapBuilder>();
+
+            // NOTE: This it temporary, the pixel comparer needs to be made fully configurable.
+            SimpleIoc.Default.Register<IPixelComparer>(() => new TolerancePixelComparer(20));
 
             // View Models
             SimpleIoc.Default.Register<HostViewModel>();
