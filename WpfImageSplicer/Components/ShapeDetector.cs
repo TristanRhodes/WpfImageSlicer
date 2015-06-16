@@ -74,11 +74,11 @@ namespace WpfImageSplicer.Components
                     shapeMap[x, y] = false;
                 }
             }
+
             // find open node
             var startingPoint = GetFirstNode();
             if (startingPoint == null)
                 return false;
-
 
             // Start with white nodes, and find all other white nodes.
             _explorationQueue.Clear();

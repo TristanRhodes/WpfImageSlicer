@@ -45,6 +45,9 @@ namespace WpfImageSplicer.Components
             // Explore Until you find a cell that is not an edge
             // Start from the first clockwise vector
 
+            // NOTE: I don't like how this assumes there will be a shape. The calculation is
+            // done elsewhere, so it's not obvious, and it's actually quite expensive to calculate.
+
             var path = new PointCollection();
             var startPoint = GetStartPoint(shapeMap);
             var startVector = new Vector(0, 1);
