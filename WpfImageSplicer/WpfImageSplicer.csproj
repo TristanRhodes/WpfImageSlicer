@@ -81,6 +81,7 @@
     <Compile Include="Components\MapState.cs" />
     <Compile Include="Components\VectorPoint.cs" />
     <Compile Include="Converters\PathConverter.cs" />
+    <Compile Include="Utilities\StaTask.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="ViewModel\HostViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

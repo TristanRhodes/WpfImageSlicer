@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Markup;
 using System.Xml;
 using WpfImageSplicer.Collections;
+using WpfImageSplicer.Utilities;
 
 namespace WpfImageSplicer.Components
 {
@@ -22,35 +23,10 @@ namespace WpfImageSplicer.Components
         {
             // Need to create the task on the STA thread, otherwise it fails
             // to create the WPF controls.
-            return StartSTATask<string>(() => InternalExecute(width, height, shapes));;
+            return StaTask.Start<string>(() => InternalGenerateXaml(width, height, shapes));;
         }
 
-        /// <summary>
-        /// This method starts a task on the STA tread.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="func"></param>
-        /// <returns></returns>
-        private static Task<T> StartSTATask<T>(Func<T> func)
-        {
-            var tcs = new TaskCompletionSource<T>();
-            Thread thread = new Thread(() =>
-            {
-                try
-                {
-                    tcs.SetResult(func());
-                }
-                catch (Exception e)
-                {
-                    tcs.SetException(e);
-                }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            return tcs.Task;
-        }
-
-        private string InternalExecute(double width, double height, IEnumerable<PointCollection> shapes)
+        private string InternalGenerateXaml(double width, double height, IEnumerable<PointCollection> shapes)
         {
             var converter = new WpfImageSplicer.Converters.PathConverter();
 
@@ -89,10 +65,10 @@ namespace WpfImageSplicer.Components
                 root.Children.Add(path);
             }
 
-            return GenerateXaml(root);
+            return GenerateXamlFromRoot(root);
         }
 
-        private string GenerateXaml(System.Windows.Controls.Canvas root)
+        private string GenerateXamlFromRoot(System.Windows.Controls.Canvas root)
         {
             // For proper XML formatting
             XmlWriterSettings settings = new XmlWriterSettings();
