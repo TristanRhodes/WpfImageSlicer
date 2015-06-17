@@ -80,7 +80,7 @@ namespace WpfImageSplicer.Components
             if (startingPoint == null)
                 return false;
 
-            // Start with white nodes, and find all other white nodes.
+            // Start with open nodes, and find all other open nodes.
             _explorationQueue.Clear();
             _explorationQueue.Enqueue(startingPoint.Value);
 

@@ -201,7 +201,7 @@ namespace WpfImageSplicer.ViewModel
         }
 
 
-        private void ProcessImageComplete(Task<List<PointCollection>> task)
+        private void ProcessImageComplete(Task<ShapeCollection> task)
         {
             Processing = false;
 
