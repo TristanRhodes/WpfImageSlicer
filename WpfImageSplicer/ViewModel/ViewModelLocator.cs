@@ -44,6 +44,8 @@ namespace WpfImageSplicer.ViewModel
                 // SimpleIoc.Default.Register<IDataService, DataService>();
             }
 
+            SimpleIoc.Default.Reset();
+
             // Components and services.
             SimpleIoc.Default.Register<IDialogService, DefaultDialogService>();
             SimpleIoc.Default.Register<IExceptionHandler, DefaultExceptionHandler>();
@@ -59,6 +61,7 @@ namespace WpfImageSplicer.ViewModel
             // View Models
             SimpleIoc.Default.Register<HostViewModel>();
             SimpleIoc.Default.Register<XamlExportViewModel>();
+            SimpleIoc.Default.Register<ColorPickerViewModel>();
         }
 
         public HostViewModel Host
@@ -71,9 +74,19 @@ namespace WpfImageSplicer.ViewModel
 
         public XamlExportViewModel XamlExport
         {
-            get { return ServiceLocator.Current.GetInstance<XamlExportViewModel>(); }
+            get
+            {
+                return ServiceLocator.Current.GetInstance<XamlExportViewModel>();
+            }
         }
-        
+
+        public ColorPickerViewModel ColorPicker
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ColorPickerViewModel>();
+            }
+        }
 
         public static void Cleanup()
         {

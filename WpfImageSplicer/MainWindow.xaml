@@ -14,10 +14,10 @@
         <!-- Style to use for paths.-->
         <Style x:Key="OutlinePathStyle" TargetType="{x:Type Path}">
             <Style.Setters>
-                <Setter Property="Fill" Value="Transparent" />
+                <Setter Property="Fill" Value="DarkGray" />
                 <Setter Property="Stroke">
                     <Setter.Value>
-                        <SolidColorBrush Color="Green" Opacity="0.75"/>
+                        <SolidColorBrush Color="Gold" Opacity="0.75"/>
                     </Setter.Value>
                 </Setter>
             </Style.Setters>
@@ -35,6 +35,10 @@
     
     
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
         <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
             <Grid>
@@ -63,7 +67,7 @@
         </ScrollViewer>
 
         <!-- Controls Layer -->
-        <StackPanel HorizontalAlignment="Right" Width="250" Margin="0,0,20,0">
+        <StackPanel HorizontalAlignment="Right" Width="250" Margin="0,0,20,0" Grid.Column="1">
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
                 <TextBox x:Name="ImagePathTextBox" Margin="5" IsEnabled="False" Width="150" Height="24" Text="{Binding ImagePath}"/>
                 <Button Width="75" Height="24" Margin="5" Content="Browse" Command="{Binding BrowseForImageCommand}"/>
@@ -74,6 +78,7 @@
             </StackPanel>
             <Button x:Name="ClearButton" Width="75" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Command="{Binding ClearCommand}">Clear</Button>
             <Button x:Name="ExportButton" Width="75" Height="24" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Command="{Binding ExportXamlCommand}">Export</Button>
+            <controls:ColorPickerView/>
         </StackPanel>
     </Grid>
 </Window>

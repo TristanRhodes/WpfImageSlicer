@@ -85,9 +85,13 @@
     <Compile Include="Converters\PathConverter.cs" />
     <Compile Include="Utilities\StaTask.cs" />
     <Compile Include="Vector.cs" />
+    <Compile Include="ViewModel\ColorPickerViewModel.cs" />
     <Compile Include="ViewModel\HostViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\XamlExportViewModel.cs" />
+    <Compile Include="View\ColorPickerView.xaml.cs">
+      <DependentUpon>ColorPickerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Spinner.xaml.cs">
       <DependentUpon>Spinner.xaml</DependentUpon>
     </Compile>
@@ -110,6 +114,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ColorPickerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Spinner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
