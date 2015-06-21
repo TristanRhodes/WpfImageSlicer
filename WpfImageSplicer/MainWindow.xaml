@@ -4,6 +4,7 @@
         xmlns:win32="clr-namespace:Microsoft.Win32;assembly=PresentationFramework"
         xmlns:converters="clr-namespace:WpfImageSplicer.Converters"
         xmlns:controls="clr-namespace:WpfImageSplicer.View"
+        xmlns:behaviors="clr-namespace:WpfImageSplicer.Behaviours"
         Title="MainWindow" Height="600" Width="800"
         DataContext="{Binding Host, Source={StaticResource ViewModelLocator}}">
     <Window.Resources>
@@ -40,7 +41,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" PreviewMouseDown="ScrollViewer_PreviewMouseDown">
             <Grid>
                 <!-- Map Layer -->
                 <Canvas x:Name="Canvas" Width="{Binding Width}" Height="{Binding Height}">

@@ -91,7 +91,7 @@ namespace WpfImageSplicer.ViewModel
         private void OnStartSample()
         {
             var msg = new BeginColorSampleMode(ColorPickCallback);
-            this.MessengerInstance.Send(new EndColorSampleMode());
+            this.MessengerInstance.Send(msg);
         }
 
         private void OnEndSample()
@@ -109,7 +109,7 @@ namespace WpfImageSplicer.ViewModel
         private void ColorPickCallback(Color color)
         {
             Color = color;
-            OnEndSample();
+            ExecuteCancelSample();
         }
     }
 

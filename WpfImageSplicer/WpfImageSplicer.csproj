@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviours\ImageBehaviorMouseDownPointSampleToColor.cs" />
     <Compile Include="Collections\PointCollection.cs" />
     <Compile Include="Collections\ShapeCollection.cs" />
     <Compile Include="Components\IDialogService.cs" />
