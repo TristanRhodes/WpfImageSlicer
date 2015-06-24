@@ -27,6 +27,9 @@ namespace WpfImageSplicer.ViewModel
             // Commands
             SampleCommand = new RelayCommand(ExecuteSample, CanExecuteSample);
             CancelSampleCommand = new RelayCommand(ExecuteCancelSample, CanExecuteCancelSample);
+
+            // Raise initialization event
+            OnColorSelectionChanged();
         }
 
 

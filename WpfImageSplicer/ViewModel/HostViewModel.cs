@@ -28,6 +28,10 @@ namespace WpfImageSplicer.ViewModel
         private BitmapImage _image;
         private string _imagePath;
         private ObservableCollection<PointCollection> _shapes = new ObservableCollection<PointCollection>();
+
+        // Holders for pixel comparer. Need to figure out what to do with these.
+        private int _tolerance;
+        private System.Windows.Media.Color _color;
         
 
         public HostViewModel(ILogger logger,
@@ -50,6 +54,9 @@ namespace WpfImageSplicer.ViewModel
             BrowseForImageCommand = new RelayCommand(ExecuteBrowseForImage, CanExecuteBrowseForImage);
             ClearCommand = new RelayCommand(ExecuteClear, CanExecuteClear);
             ExportXamlCommand = new RelayCommand(ExecuteExportXaml, CanExecuteExportXaml);
+
+            // Event subscriptions
+            MessengerInstance.Register<ColorSelectionChangedEventArgs>(this, ColorSelectionChanged);
 
             // Load default image
             Image = new BitmapImage(new Uri("pack://application:,,,/Resources/UKCounties.png"));
@@ -138,8 +145,9 @@ namespace WpfImageSplicer.ViewModel
             var pixels = _mapBuilder
                 .GetPixels(Image);
 
-            // May need to move this to a factory.
-            var comparer = new TolerancePixelComparer(20, System.Windows.Media.Color.FromRgb(255, 255, 255));
+            // NOTE: Move to factory? Long term plan is to provide some kind of specification.
+            var comparer = new TolerancePixelComparer(
+                _tolerance, _color);
 
             // Kick off a task to process the image, and handle the completed callback on the UI thread.
             var task = _imageProcessor
@@ -210,6 +218,12 @@ namespace WpfImageSplicer.ViewModel
             //NOTE: This is not ideal. Should find better solution. 
             // Without this, buttons do not re-enable after processing is completed, and remain grayed out.
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void ColorSelectionChanged(ColorSelectionChangedEventArgs obj)
+        {
+            _tolerance = obj.Tolerance;
+            _color = obj.Color;
         }
     }
 }
