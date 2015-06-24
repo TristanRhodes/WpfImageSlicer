@@ -37,16 +37,6 @@ namespace WpfImageSplicer.ViewModel
                                 IPixelMapBuilder mapBuilder,
                                 IXamlGenerator xamlGenerator)
         {
-
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-
             // DI Setup
             _logger = logger;
             _exceptionHandler = exceptionHandler;
@@ -148,9 +138,12 @@ namespace WpfImageSplicer.ViewModel
             var pixels = _mapBuilder
                 .GetPixels(Image);
 
+            // May need to move this to a factory.
+            var comparer = new TolerancePixelComparer(20, System.Windows.Media.Color.FromRgb(255, 255, 255));
+
             // Kick off a task to process the image, and handle the completed callback on the UI thread.
             var task = _imageProcessor
-                .ProcessImage(pixels)
+                .ProcessImage(comparer, pixels)
                 .ContinueWith(ProcessImageComplete, TaskScheduler.FromCurrentSynchronizationContext());
         }
         

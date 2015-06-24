@@ -18,6 +18,7 @@ namespace WpfImageSplicer.Utilities
         public static Task<T> Start<T>(Func<T> func)
         {
             var tcs = new TaskCompletionSource<T>();
+
             Thread thread = new Thread(() =>
             {
                 try
@@ -31,6 +32,7 @@ namespace WpfImageSplicer.Utilities
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
+
             return tcs.Task;
         }
     }

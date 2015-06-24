@@ -9,21 +9,17 @@ namespace WpfImageSplicer.Components
 {
     public interface IExplorationMapBuilder
     {
-        MapState[,] GetExplorationMap(PixelColor[,] source);
+        MapState[,] GetExplorationMap(IPixelComparer pixelComparer, PixelColor[,] source);
     }
 
     public class ExplorationMapBuilder : IExplorationMapBuilder
-    {
-        private IPixelComparer _pixelComparer;
-        
-
-        public ExplorationMapBuilder(IPixelComparer pixelComparer)
+    {     
+        public ExplorationMapBuilder()
         {
-            _pixelComparer = pixelComparer;
         }
 
 
-        public MapState[,] GetExplorationMap(PixelColor[,] source)
+        public MapState[,] GetExplorationMap(IPixelComparer pixelComparer, PixelColor[,] source)
         {
             int width = source.GetLength(0);
             int height = source.GetLength(1);
@@ -39,7 +35,7 @@ namespace WpfImageSplicer.Components
                     var newColor = source[x, y]
                                     .ToColor();
 
-                    var open = _pixelComparer
+                    var open = pixelComparer
                                     .IsOpen(newColor);
 
                     cellState[x, y] = open ?

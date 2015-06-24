@@ -9,7 +9,7 @@ namespace WpfImageSplicer.Components
 {
     public interface IImageProcessor
     {
-        Task<ShapeCollection> ProcessImage(PixelColor[,] pixels);
+        Task<ShapeCollection> ProcessImage(IPixelComparer comparer, PixelColor[,] pixels);
     }
 
     public class ImageProcessor : IImageProcessor
@@ -25,14 +25,14 @@ namespace WpfImageSplicer.Components
         }
 
 
-        public Task<ShapeCollection> ProcessImage(PixelColor[,] pixels)
+        public Task<ShapeCollection> ProcessImage(IPixelComparer comparer, PixelColor[,] pixels)
         {
-            return Task.Run(() => InternalExecute(pixels));
+            return Task.Run(() => InternalExecute(comparer, pixels));
         }
 
-        private ShapeCollection InternalExecute(PixelColor[,] pixels)
+        private ShapeCollection InternalExecute(IPixelComparer comparer, PixelColor[,] pixels)
         {
-            var map = _mapBuilder.GetExplorationMap(pixels);
+            var map = _mapBuilder.GetExplorationMap(comparer, pixels);
 
             var shapeDetector = new ShapeDetector(map);
             var edgePlotter = new EdgePlotter(_logger);

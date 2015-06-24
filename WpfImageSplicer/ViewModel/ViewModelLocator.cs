@@ -35,16 +35,13 @@ namespace WpfImageSplicer.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                // Create design time view services and models
-                // SimpleIoc.Default.Register<IDataService, DesignDataService>();
+                // Needed to prevent design time errors.
+                SimpleIoc.Default.Reset();
             }
             else
             {
-                // Create run time view services and models
-                // SimpleIoc.Default.Register<IDataService, DataService>();
+                // Runtime view services and models
             }
-
-            SimpleIoc.Default.Reset();
 
             // Components and services.
             SimpleIoc.Default.Register<IDialogService, DefaultDialogService>();
@@ -55,8 +52,6 @@ namespace WpfImageSplicer.ViewModel
             SimpleIoc.Default.Register<IXamlGenerator, DefaultXamlGenerator>();
             SimpleIoc.Default.Register<IExplorationMapBuilder, ExplorationMapBuilder>();
 
-            // NOTE: This it temporary, the pixel comparer needs to be made fully configurable.
-            SimpleIoc.Default.Register<IPixelComparer>(() => new TolerancePixelComparer(20, Color.FromRgb(255, 255, 255)));
 
             // View Models
             SimpleIoc.Default.Register<HostViewModel>();
